@@ -5,4 +5,4 @@
 # On login node (has internet)
 module load StdEnv/2023 python/3.11.5
 source ~/venvs/ai_egd/bin/activate
-python download_dinov2.py
+python download_ckpts_dinov2.py
