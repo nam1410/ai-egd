@@ -2,7 +2,12 @@ import timm
 import torch
 import torch.nn as nn
 from typing import List
+import os
 
+if os.path.exists(model_path):
+    model = timm.create_model(model_name, pretrained=False, num_classes=num_classes)
+    state_dict = torch.load(model_path, map_location='cpu')
+    model.load_state_dict(state_dict, strict=False)
 
 def create_dinov2_classifier(num_classes: int = 2, model_name: str = 'vit_small_patch14_dinov2') -> nn.Module:
     """
@@ -12,7 +17,13 @@ def create_dinov2_classifier(num_classes: int = 2, model_name: str = 'vit_small_
       - 'vit_base_patch14_dinov2'
       - 'vit_large_patch14_dinov2'
     """
-    model = timm.create_model(model_name, pretrained=True, num_classes=num_classes)
+    model_path = os.path.expanduser("/lustre06/project/6103394/ofarooq/ai-egd/hub/vit_small_patch14_dinov2.lvd142m.safetensors")
+    if os.path.exists(model_path):
+        model = timm.create_model(model_name, pretrained=False, num_classes=num_classes)
+        state_dict = torch.load(model_path, map_location='cpu')
+        model.load_state_dict(state_dict, strict=False)
+    else:
+        model = timm.create_model(model_name, pretrained=True, num_classes=num_classes)
     return model
 
 
