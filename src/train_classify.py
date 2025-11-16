@@ -63,21 +63,12 @@ def make_weighted_sampler(labels: List[int]) -> WeightedRandomSampler:
     return WeightedRandomSampler(weights, num_samples=len(weights), replacement=True)
 
 
-def load_patient_site_map(json_path: str) -> Dict:
-    """
-    JSON file format example:
-    {
-      "May 9-1438": {"Antrum": "Chronic Gastritis", "Body": "Chronic Gastritis and H-pylori"},
-      "May 9-1528": {"Antrum": "Chronic Gastritis", "Body": "Negative"},
-      "May 16-0746": {"Antrum": "Chronic Gastritis and H-pylori", "Body": "Chronic Gastritis and H-pylori"},
-      "May 16-0910": {"Antrum": "Negative", "Body": "Negative"},
-      "May 16-0952": {"Antrum": "Chronic Gastritis", "Body": "Negative"}
-    }
-    """
-    if not json_path or not os.path.exists(json_path):
-        return {}
-    with open(json_path, 'r') as f:
-        return json.load(f)
+def custom_collate(batch):
+    """Custom collate function to handle the metadata dict"""
+    images = torch.stack([item[0] for item in batch])
+    labels = torch.stack([item[1] for item in batch])
+    metadata = [item[2] for item in batch]
+    return images, labels, metadata
 
 
 def train_one_epoch(model, loader, device, optimizer, criterion):
@@ -125,9 +116,9 @@ def evaluate(model, loader, device, criterion):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--data_root', type=str, required=True,
-                        help='Root folder containing patient subfolders with images + XMLs.')
-    parser.add_argument('--patient_site_json', type=str, default='',
-                        help='Optional JSON mapping patient->site->report. If absent, falls back to XML.')
+                        help='Root folder for resolving relative paths in patient config.')
+    parser.add_argument('--patient_config_json', type=str, required=True,
+                        help='Path to patient config JSON file.')
     parser.add_argument('--model_name', type=str, default='vit_small_patch14_dinov2',
                         help='timm model name for DINOv2 backbone.')
     parser.add_argument('--img_size', type=int, default=518)
@@ -139,38 +130,65 @@ def main():
     parser.add_argument('--unfreeze_blocks', type=int, default=2)
     parser.add_argument('--num_workers', type=int, default=4)
     parser.add_argument('--seed', type=int, default=42)
+    parser.add_argument('--save_dir', type=str, default='./checkpoints',
+                        help='Directory to save model checkpoints')
     args = parser.parse_args()
 
     seed_everything(args.seed)
+    
+    # Create save directory
+    os.makedirs(args.save_dir, exist_ok=True)
+
+    # Load patient config
+    with open(args.patient_config_json, 'r') as f:
+        patient_config = json.load(f)
 
     # Data
-    patient_site_map = load_patient_site_map(args.patient_site_json)
     train_tf, val_tf = build_transforms(img_size=args.img_size)
+    
+    # Create dataset with train transforms first
     full_ds = EndoClassificationDataset(
-        root_dir=args.data_root,
-        patient_site_map=patient_site_map,
-        transform=train_tf  # will override for val subset below
+        data_root=args.data_root,
+        patient_config=patient_config,
+        transform=train_tf
     )
+    
+    print(f"Dataset loaded: {len(full_ds)} samples from {len(full_ds.patient_ids())} patients")
+    
+    # Get train/val split
     train_idx, val_idx = split_by_patient(full_ds, test_size=0.2, seed=args.seed)
+    print(f"Train: {len(train_idx)} samples, Val: {len(val_idx)} samples")
+    
+    # Create subsets
     train_ds = Subset(full_ds, train_idx)
-    # Clone dataset with val transforms
-    val_ds = Subset(EndoClassificationDataset(
-        root_dir=args.data_root,
-        patient_site_map=patient_site_map,
+    
+    # For validation, we need to create a new dataset with val transforms
+    val_full_ds = EndoClassificationDataset(
+        data_root=args.data_root,
+        patient_config=patient_config,
         transform=val_tf
-    ), val_idx)
+    )
+    val_ds = Subset(val_full_ds, val_idx)
 
     # Weighted sampler to mitigate class imbalance
     train_labels = [full_ds[i][1].item() for i in train_idx]
     sampler = make_weighted_sampler(train_labels)
+    
+    # Print class distribution
+    unique, counts = np.unique(train_labels, return_counts=True)
+    print(f"Train class distribution: {dict(zip(unique, counts))}")
 
     train_loader = DataLoader(train_ds, batch_size=args.batch_size, sampler=sampler,
-                              num_workers=args.num_workers, pin_memory=True)
+                              num_workers=args.num_workers, pin_memory=True, 
+                              collate_fn=custom_collate)
     val_loader = DataLoader(val_ds, batch_size=args.batch_size, shuffle=False,
-                            num_workers=args.num_workers, pin_memory=True)
+                            num_workers=args.num_workers, pin_memory=True,
+                            collate_fn=custom_collate)
 
     # Model
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    print(f"Using device: {device}")
+    
     model = create_dinov2_classifier(num_classes=2, model_name=args.model_name).to(device)
 
     # Stage 1: train only head
@@ -181,26 +199,61 @@ def main():
 
     print('Stage 1: training classifier head with frozen backbone...')
     best_acc = 0.0
+    best_epoch = 0
+    
     for epoch in range(1, args.epochs_stage1 + 1):
         tr_loss, tr_acc = train_one_epoch(model, train_loader, device, optimizer, criterion)
         va_loss, va_acc = evaluate(model, val_loader, device, criterion)
         print(f'[S1][{epoch}/{args.epochs_stage1}] train_loss={tr_loss:.4f} acc={tr_acc:.3f} '
               f'val_loss={va_loss:.4f} acc={va_acc:.3f}')
-        best_acc = max(best_acc, va_acc)
+        
+        if va_acc > best_acc:
+            best_acc = va_acc
+            best_epoch = epoch
+            # Save checkpoint
+            checkpoint = {
+                'epoch': epoch,
+                'stage': 1,
+                'model_state_dict': model.state_dict(),
+                'optimizer_state_dict': optimizer.state_dict(),
+                'best_acc': best_acc,
+                'args': args
+            }
+            torch.save(checkpoint, os.path.join(args.save_dir, 'best_stage1.pth'))
+
+    print(f'Stage 1 best: epoch {best_epoch}, acc {best_acc:.3f}')
 
     # Stage 2: unfreeze last N blocks (low LR fine-tune)
     unfreeze_last_blocks(model, n_blocks=args.unfreeze_blocks)
     optimizer = torch.optim.AdamW(filter(lambda p: p.requires_grad, model.parameters()),
                                   lr=args.lr_ft, weight_decay=0.01)
-    print('Stage 2: fine-tuning last transformer blocks at low LR...')
+    
+    print(f'Stage 2: fine-tuning last {args.unfreeze_blocks} transformer blocks at low LR...')
+    
     for epoch in range(1, args.epochs_stage2 + 1):
         tr_loss, tr_acc = train_one_epoch(model, train_loader, device, optimizer, criterion)
         va_loss, va_acc = evaluate(model, val_loader, device, criterion)
         print(f'[S2][{epoch}/{args.epochs_stage2}] train_loss={tr_loss:.4f} acc={tr_acc:.3f} '
               f'val_loss={va_loss:.4f} acc={va_acc:.3f}')
-        best_acc = max(best_acc, va_acc)
+        
+        if va_acc > best_acc:
+            best_acc = va_acc
+            best_epoch = args.epochs_stage1 + epoch
+            # Save checkpoint
+            checkpoint = {
+                'epoch': epoch,
+                'stage': 2,
+                'model_state_dict': model.state_dict(),
+                'optimizer_state_dict': optimizer.state_dict(),
+                'best_acc': best_acc,
+                'args': args
+            }
+            torch.save(checkpoint, os.path.join(args.save_dir, 'best_model.pth'))
 
-    print(f'Done. Best val acc: {best_acc:.3f}')
+    print(f'Done. Best val acc: {best_acc:.3f} at epoch {best_epoch}')
+    
+    # Save final model
+    torch.save(model.state_dict(), os.path.join(args.save_dir, 'final_model.pth'))
 
 
 if __name__ == '__main__':
