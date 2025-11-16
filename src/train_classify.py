@@ -274,7 +274,7 @@ def main():
     criterion = nn.CrossEntropyLoss(label_smoothing=args.label_smoothing)
     
     # Learning rate scheduler
-    scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=5, verbose=True)
+    scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=5)
     early_stopping = EarlyStopping(patience=10)
 
     print('Stage 1: training classifier head with frozen backbone...')
