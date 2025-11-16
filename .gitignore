@@ -1,0 +1,4 @@
+# Ignore checkpoints and logs
+*.out
+output/
+checkpoints/
