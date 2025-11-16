@@ -183,8 +183,9 @@ if __name__ == "__main__":
     from torchvision import transforms
     from collections import Counter
     
-    data_root = "/path/to/data/root"
-    config_path = "/path/to/patient_config.json"
+    #change these paths as needed
+    data_root = "/lustre06/project/6103394/ofarooq/AIEGD_datasets/datasets_sorted"
+    config_path = "/lustre06/project/6103394/ofarooq/ai-egd/src/datasets/patient_config.json"
     
     with open(config_path, 'r') as f:
         patient_config = json.load(f)

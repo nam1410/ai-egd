@@ -1,0 +1,63 @@
+{
+  "Record 1": {
+    "images":"datasets_sorted/Record 1",
+    "annotations":"datasets_sorted/Record 1/annotations",
+    "Antrum": "Negative",
+    "Body": "Negative"    
+  },
+  "Record 2": {
+    "images":"datasets_sorted/Record 2",
+    "annotations":"datasets_sorted/Record 2/annotations",
+    "Antrum": "Chronic Gastritis",
+    "Body": "Negative"
+  },
+  "Record 3": {
+    "images":"datasets_sorted/Record 3",
+    "annotations":"datasets_sorted/Record 3/annotations",
+    "Antrum": "Negative",
+    "Body": "Negative"
+  },
+  "Record 4": {
+    "images":"datasets_sorted/Record 4",
+    "annotations":"datasets_sorted/Record 4/annotations",
+    "Antrum": "Negative",
+    "Body": "Negative"
+  },
+  "Record 5": {
+    "images":"datasets_sorted/Record 5",
+    "annotations":"datasets_sorted/Record 5/annotations",
+    "Antrum": "Negative",
+    "Body": "Negative"
+  },
+  "Record 6": {
+    "images":"datasets_sorted/Record 6",
+    "annotations":"datasets_sorted/Record 6/annotations",
+    "Antrum": "Chronic Gastritis",
+    "Body": "Chronic Gastritis"
+  },
+  "Record 8": {
+    "images":"datasets_sorted/Record 8",
+    "annotations":"datasets_sorted/Record 8/annotations",
+    "Antrum": "Chronic Gastritis and Intestinal Metaplasia",
+    "Body": "Negative"
+  },
+  "Record 9": {
+    "images":"datasets_sorted/Record 9",
+    "annotations":"datasets_sorted/Record 9/annotations",
+    "Antrum": "Negative",
+    "Body": "Chronic Gastritis"
+  },
+  "Record 10": {
+    "images":"datasets_sorted/Record 10",
+    "annotations":"datasets_sorted/Record 10/annotations",
+    "Antrum": "Negative",
+    "Body": "Negative"
+  },
+  "Record 11": {
+    "images":"datasets_sorted/Record 11",
+    "annotations":"datasets_sorted/Record 11/annotations",
+    "Antrum": "Chronic Gastritis",
+    "Body": "Negative"
+  }
+
+}
