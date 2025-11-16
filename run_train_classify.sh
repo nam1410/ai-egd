@@ -19,7 +19,7 @@ nvidia-smi
 
 
 # Test with smaller epochs
-python -m src.train_classify.py \
+python -m src.train_classify \
     --data_root /lustre06/project/6103394/ofarooq/AIEGD_datasets/ \
     --patient_config_json /lustre06/project/6103394/ofarooq/ai-egd/src/datasets/patient_config.json \
     --batch_size 8 \
