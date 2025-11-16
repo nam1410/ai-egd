@@ -21,6 +21,39 @@ def _infer_site_from_filename(name: str) -> Optional[str]:
     return None
 
 
+def _extract_key_parts(filename: str) -> Optional[Tuple[str, str, str]]:
+    """
+    Extract key parts from filename for matching.
+    Returns: (record_id, site_with_number, nb_indicator) or None
+    
+    Examples:
+    "Record 11 NB Body 4 Negative.jpg" -> ("record11", "body4", "nb")
+    "Record 11 NB Body 4.xml" -> ("record11", "body4", "nb")
+    """
+    name = os.path.splitext(os.path.basename(filename))[0].lower()
+    
+    # Check if it has NB (we only want NB images)
+    if 'nb' not in name:
+        return None
+    
+    # Extract record number
+    record_match = re.search(r'record\s*(\d+)', name)
+    if not record_match:
+        return None
+    record_id = f"record{record_match.group(1)}"
+    
+    # Extract site (body/antrum) with number
+    site_match = re.search(r'(body|antrum)\s*(\d+)?', name)
+    if not site_match:
+        return None
+    
+    site = site_match.group(1)
+    number = site_match.group(2) if site_match.group(2) else ""
+    site_with_number = f"{site}{number}"
+    
+    return (record_id, site_with_number, "nb")
+
+
 def _normalize_stem(path: str) -> str:
     """
     Returns a normalized key for matching image <-> xml:
@@ -99,31 +132,51 @@ class EndoClassificationDataset(Dataset):
             images_dir = cfg.get('images', '')
             ann_dir = cfg.get('annotations', '')
 
-            if not images_dir or not ann_dir:
-                # Skip patients without both paths
+            if not images_dir:
                 continue
 
             images_dir = _join_root(self.data_root, images_dir)
-            ann_dir = _join_root(self.data_root, ann_dir)
 
             if not os.path.isdir(images_dir):
                 continue
-            if not os.path.isdir(ann_dir):
-                # We allow missing annotations dir (label may come from site report),
-                # but keep ann_dir None to signal no XML.
+                
+            # Handle optional annotations directory
+            if ann_dir:
+                ann_dir = _join_root(self.data_root, ann_dir)
+                if not os.path.isdir(ann_dir):
+                    ann_dir = None
+            else:
                 ann_dir = None
 
             # Collect images and xmls
-            img_files = _walk_files(images_dir, IMG_EXTS)
+            all_img_files = _walk_files(images_dir, IMG_EXTS)
+            
+            # Filter for NB images only
+            img_files = []
+            for img_path in all_img_files:
+                key_parts = _extract_key_parts(img_path)
+                if key_parts:  # This already checks for NB
+                    img_files.append(img_path)
+            
+            # Build XML mapping using flexible key matching
             xml_map = {}
             if ann_dir is not None:
-                xml_files = _walk_files(ann_dir, {'.xml'})
-                xml_map = { _normalize_stem(p): p for p in xml_files }
+                all_xml_files = _walk_files(ann_dir, {'.xml'})
+                for xml_path in all_xml_files:
+                    key_parts = _extract_key_parts(xml_path)
+                    if key_parts:  # Only NB XMLs
+                        # Create a composite key for matching
+                        key = f"{key_parts[0]}_{key_parts[1]}"
+                        xml_map[key] = xml_path
 
             patient_had_sample = False
 
             for img_path in img_files:
                 site = _infer_site_from_filename(os.path.basename(img_path))
+                img_key_parts = _extract_key_parts(img_path)
+                
+                if not img_key_parts:  # Should not happen as we pre-filtered
+                    continue
 
                 # Prefer site-level report when provided
                 label: Optional[int] = None
@@ -132,11 +185,11 @@ class EndoClassificationDataset(Dataset):
                     if isinstance(report, str):
                         label = 0 if report.strip().lower() == 'negative' else 1
 
-                # Find best-matching XML for this image (for fallback or metadata)
+                # Find matching XML using flexible key
                 xml_path = None
-                key = _normalize_stem(img_path)
-                if key in xml_map:
-                    xml_path = xml_map[key]
+                img_key = f"{img_key_parts[0]}_{img_key_parts[1]}"
+                if img_key in xml_map:
+                    xml_path = xml_map[img_key]
 
                 # Fallback to XML-derived label if still unknown
                 if label is None and xml_path is not None:
@@ -166,16 +219,20 @@ class EndoClassificationDataset(Dataset):
             im = im.convert("RGB")
         if self.transform:
             im = self.transform(im)
-        return im, torch.tensor(label, dtype=torch.long), {
+        
+        # Return metadata as dict
+        metadata = {
             "patient": patient,
             "xml": xml_path,
             "path": img_path,
         }
+        
+        return im, torch.tensor(label, dtype=torch.long), metadata
 
     def patient_ids(self) -> List[str]:
         # Return only those patients that contributed at least one sample
         return list(sorted(set(self._patients_with_data)))
-    
+
 
 if __name__ == "__main__":
     # Simple test to verify dataset loading
@@ -251,36 +308,40 @@ if __name__ == "__main__":
     print("\nTesting DataLoader integration:")
     from torch.utils.data import DataLoader
     
-    loader = DataLoader(dataset, batch_size=4, shuffle=True, num_workers=0)
+    # Custom collate function to handle dict metadata
+    def custom_collate(batch):
+        images = torch.stack([item[0] for item in batch])
+        labels = torch.stack([item[1] for item in batch])
+        # Don't stack metadata dicts, keep as list
+        metadata = [item[2] for item in batch]
+        return images, labels, metadata
+    
+    loader = DataLoader(dataset, batch_size=4, shuffle=True, num_workers=0, collate_fn=custom_collate)
     try:
         batch = next(iter(loader))
         images, labels, metas = batch
         print(f"  Batch shapes: images={images.shape}, labels={labels.shape}")
         print(f"  Batch dtypes: images={images.dtype}, labels={labels.dtype}")
+        print(f"  Metadata in batch: {len(metas)} items")
     except Exception as e:
         print(f"  ERROR in DataLoader: {e}")
+        import traceback
+        traceback.print_exc()
     
-    # 6. Check for duplicate normalized stems (potential matching issues)
-    print("\nChecking for potential filename normalization conflicts:")
-    stem_to_paths = {}
-    for i in range(len(dataset)):
+    # 6. Check matching between images and XMLs
+    print("\nChecking image-XML matching:")
+    matched_count = 0
+    unmatched_count = 0
+    for i in range(min(10, len(dataset))):
         _, _, meta = dataset[i]
-        stem = _normalize_stem(meta['path'])
-        if stem not in stem_to_paths:
-            stem_to_paths[stem] = []
-        stem_to_paths[stem].append(meta['path'])
-    
-    conflicts = {k: v for k, v in stem_to_paths.items() if len(v) > 1}
-    if conflicts:
-        print(f"  Found {len(conflicts)} potential conflicts:")
-        for stem, paths in list(conflicts.items())[:3]:
-            print(f"    {stem}: {paths}")
-    else:
-        print("  No normalization conflicts found.")
-    
-    # 7. Verify site inference
-    print("\nTesting site inference:")
-    test_names = ["patient-body-1.jpg", "patient-antrum-2.jpg", "patient-other-3.jpg"]
-    for name in test_names:
-        site = _infer_site_from_filename(name)
-        print(f"  {name} -> {site}")
+        if meta['xml']:
+            matched_count += 1
+            img_parts = _extract_key_parts(meta['path'])
+            xml_parts = _extract_key_parts(meta['xml'])
+            print(f"  Image: {os.path.basename(meta['path'])}")
+            print(f"    -> XML: {os.path.basename(meta['xml'])}")
+            print(f"    -> Image parts: {img_parts}")
+            print(f"    -> XML parts: {xml_parts}")
+        else:
+            unmatched_count += 1
+    print(f"Total checked: {min(10, len(dataset))}, Matched: {matched_count}, Unmatched: {unmatched_count}")
