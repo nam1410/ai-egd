@@ -188,7 +188,7 @@ def main():
     parser.add_argument('--batch_size', type=int, default=8)  # Reduced for small dataset
     parser.add_argument('--epochs_stage1', type=int, default=20)  # Reduced
     parser.add_argument('--epochs_stage2', type=int, default=10)  # Reduced
-    parser.add_argument('--lr_head', type=float, default=1e-5)  # Reduced
+    parser.add_argument('--lr_head', type=float, default=5e-4)  # Reduced
     parser.add_argument('--lr_ft', type=float, default=1e-5)  # Reduced
     parser.add_argument('--unfreeze_blocks', type=int, default=1)  # Reduced
     parser.add_argument('--num_workers', type=int, default=4)
@@ -266,7 +266,7 @@ def main():
         model.head.to(device)
 
     # Stage 1: train only head with label smoothing
-    # freeze_backbone(model)
+    freeze_backbone(model)
     optimizer = torch.optim.AdamW(filter(lambda p: p.requires_grad, model.parameters()),
                                   lr=args.lr_head, weight_decay=args.weight_decay)
     
@@ -312,40 +312,40 @@ def main():
     checkpoint = torch.load(os.path.join(args.save_dir, 'best_stage1.pth'))
     model.load_state_dict(checkpoint['model_state_dict'])
 
-    # # Stage 2: careful fine-tuning
-    # if best_acc > 0.6:  # Only fine-tune if stage 1 was somewhat successful
-    #     unfreeze_last_blocks(model, n_blocks=args.unfreeze_blocks)
-    #     optimizer = torch.optim.AdamW(filter(lambda p: p.requires_grad, model.parameters()),
-    #                                   lr=args.lr_ft, weight_decay=args.weight_decay)
-    #     scheduler = CosineAnnealingLR(optimizer, T_max=args.epochs_stage2)
-    #     early_stopping = EarlyStopping(patience=5)
+    # Stage 2: careful fine-tuning
+    if best_acc > 0.6:  # Only fine-tune if stage 1 was somewhat successful
+        unfreeze_last_blocks(model, n_blocks=args.unfreeze_blocks)
+        optimizer = torch.optim.AdamW(filter(lambda p: p.requires_grad, model.parameters()),
+                                      lr=args.lr_ft, weight_decay=args.weight_decay)
+        scheduler = CosineAnnealingLR(optimizer, T_max=args.epochs_stage2)
+        early_stopping = EarlyStopping(patience=5)
         
-    #     print(f'Stage 2: fine-tuning last {args.unfreeze_blocks} transformer blocks...')
+        print(f'Stage 2: fine-tuning last {args.unfreeze_blocks} transformer blocks...')
         
-    #     for epoch in range(1, args.epochs_stage2 + 1):
-    #         tr_loss, tr_acc = train_one_epoch(model, train_loader, device, optimizer, criterion)
-    #         va_loss, _acc, _, _ = evaluate(model, val_loader, device, criterion)
+        for epoch in range(1, args.epochs_stage2 + 1):
+            tr_loss, tr_acc = train_one_epoch(model, train_loader, device, optimizer, criterion)
+            va_loss, _acc, _, _ = evaluate(model, val_loader, device, criterion)
             
-    #         scheduler.step()
-    #         early_stopping(va_loss)
+            scheduler.step()
+            early_stopping(va_loss)
             
-    #         print(f'[S2][{epoch}/{args.epochs_stage2}] train_loss={tr_loss:.4f} acc={tr_acc:.3f} '
-    #               f'val_loss={va_loss:.4f} acc={va_acc:.3f} lr={optimizer.param_groups[0]["lr"]:.2e}')
+            print(f'[S2][{epoch}/{args.epochs_stage2}] train_loss={tr_loss:.4f} acc={tr_acc:.3f} '
+                  f'val_loss={va_loss:.4f} acc={va_acc:.3f} lr={optimizer.param_groups[0]["lr"]:.2e}')
             
-    #         if va_acc > best_acc:
-    #             best_acc = va_acc
-    #             best_epoch = args.epochs_stage1 + epoch
-    #             checkpoint = {
-    #                 'epoch': epoch,
-    #                 'model_state_dict': model.state_dict(),
-    #                 'optimizer_state_dict': optimizer.state_dict(),
-    #                 'best_acc': best_acc,
-    #             }
-    #             torch.save(checkpoint, os.path.join(args.save_dir, 'best_model.pth'))
+            if va_acc > best_acc:
+                best_acc = va_acc
+                best_epoch = args.epochs_stage1 + epoch
+                checkpoint = {
+                    'epoch': epoch,
+                    'model_state_dict': model.state_dict(),
+                    'optimizer_state_dict': optimizer.state_dict(),
+                    'best_acc': best_acc,
+                }
+                torch.save(checkpoint, os.path.join(args.save_dir, 'best_model.pth'))
             
-    #         if early_stopping.early_stop:
-    #             print("Early stopping triggered!")
-    #             break
+            if early_stopping.early_stop:
+                print("Early stopping triggered!")
+                break
 
     print(f'Done. Best val acc: {best_acc:.3f} at epoch {best_epoch}')
     
