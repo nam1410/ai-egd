@@ -184,7 +184,7 @@ if __name__ == "__main__":
     from collections import Counter
     
     #change these paths as needed
-    data_root = "/lustre06/project/6103394/ofarooq/AIEGD_datasets/datasets_sorted"
+    data_root = "/lustre06/project/6103394/ofarooq/AIEGD_datasets/"
     config_path = "/lustre06/project/6103394/ofarooq/ai-egd/src/datasets/patient_config.json"
     
     with open(config_path, 'r') as f:
