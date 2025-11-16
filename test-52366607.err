@@ -1,0 +1,142 @@
+'(MaxRetryError("HTTPSConnectionPool(host='huggingface.co', port=443): Max retries exceeded with url: /timm/vit_small_patch14_dinov2.lvd142m/resolve/main/model.safetensors (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x14e12aee2110>: Failed to establish a new connection: [Errno 101] Network is unreachable'))"), '(Request ID: 0423c809-3ca3-431f-a4ea-2d8e9c8229fd)')' thrown while requesting HEAD https://huggingface.co/timm/vit_small_patch14_dinov2.lvd142m/resolve/main/model.safetensors
+Retrying in 1s [Retry 1/5].
+'(MaxRetryError("HTTPSConnectionPool(host='huggingface.co', port=443): Max retries exceeded with url: /timm/vit_small_patch14_dinov2.lvd142m/resolve/main/model.safetensors (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x14e12af9b610>: Failed to establish a new connection: [Errno 101] Network is unreachable'))"), '(Request ID: 59af77e1-c2e5-4740-b73d-cf0437177969)')' thrown while requesting HEAD https://huggingface.co/timm/vit_small_patch14_dinov2.lvd142m/resolve/main/model.safetensors
+Retrying in 2s [Retry 2/5].
+'(MaxRetryError("HTTPSConnectionPool(host='huggingface.co', port=443): Max retries exceeded with url: /timm/vit_small_patch14_dinov2.lvd142m/resolve/main/model.safetensors (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x14e12afac650>: Failed to establish a new connection: [Errno 101] Network is unreachable'))"), '(Request ID: d9367e20-cb50-4c95-a435-31c9166a6936)')' thrown while requesting HEAD https://huggingface.co/timm/vit_small_patch14_dinov2.lvd142m/resolve/main/model.safetensors
+Retrying in 4s [Retry 3/5].
+'(MaxRetryError("HTTPSConnectionPool(host='huggingface.co', port=443): Max retries exceeded with url: /timm/vit_small_patch14_dinov2.lvd142m/resolve/main/model.safetensors (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x14e12afad650>: Failed to establish a new connection: [Errno 101] Network is unreachable'))"), '(Request ID: c8517bb8-1f26-433e-b323-cb38eeac9559)')' thrown while requesting HEAD https://huggingface.co/timm/vit_small_patch14_dinov2.lvd142m/resolve/main/model.safetensors
+Retrying in 8s [Retry 4/5].
+'(MaxRetryError("HTTPSConnectionPool(host='huggingface.co', port=443): Max retries exceeded with url: /timm/vit_small_patch14_dinov2.lvd142m/resolve/main/model.safetensors (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x14e12afae650>: Failed to establish a new connection: [Errno 101] Network is unreachable'))"), '(Request ID: 022904a5-6887-46cc-84ac-d9879de60b28)')' thrown while requesting HEAD https://huggingface.co/timm/vit_small_patch14_dinov2.lvd142m/resolve/main/model.safetensors
+Retrying in 8s [Retry 5/5].
+'(MaxRetryError("HTTPSConnectionPool(host='huggingface.co', port=443): Max retries exceeded with url: /timm/vit_small_patch14_dinov2.lvd142m/resolve/main/model.safetensors (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x14e12afaf650>: Failed to establish a new connection: [Errno 101] Network is unreachable'))"), '(Request ID: b3d6d2fe-ec01-4090-913c-3f56608246f2)')' thrown while requesting HEAD https://huggingface.co/timm/vit_small_patch14_dinov2.lvd142m/resolve/main/model.safetensors
+'(MaxRetryError("HTTPSConnectionPool(host='huggingface.co', port=443): Max retries exceeded with url: /timm/vit_small_patch14_dinov2.lvd142m/resolve/main/pytorch_model.bin (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x14e12afbdf90>: Failed to establish a new connection: [Errno 101] Network is unreachable'))"), '(Request ID: fa132435-acf0-4f32-89db-eafc1e597e9b)')' thrown while requesting HEAD https://huggingface.co/timm/vit_small_patch14_dinov2.lvd142m/resolve/main/pytorch_model.bin
+Retrying in 1s [Retry 1/5].
+'(MaxRetryError("HTTPSConnectionPool(host='huggingface.co', port=443): Max retries exceeded with url: /timm/vit_small_patch14_dinov2.lvd142m/resolve/main/pytorch_model.bin (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x14e12afbef50>: Failed to establish a new connection: [Errno 101] Network is unreachable'))"), '(Request ID: 1ca33c43-063e-4415-bbf0-cea9e2302076)')' thrown while requesting HEAD https://huggingface.co/timm/vit_small_patch14_dinov2.lvd142m/resolve/main/pytorch_model.bin
+Retrying in 2s [Retry 2/5].
+'(MaxRetryError("HTTPSConnectionPool(host='huggingface.co', port=443): Max retries exceeded with url: /timm/vit_small_patch14_dinov2.lvd142m/resolve/main/pytorch_model.bin (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x14e12afbfd90>: Failed to establish a new connection: [Errno 101] Network is unreachable'))"), '(Request ID: ac04d097-02ba-4a18-8a8a-77bffa14a0c6)')' thrown while requesting HEAD https://huggingface.co/timm/vit_small_patch14_dinov2.lvd142m/resolve/main/pytorch_model.bin
+Retrying in 4s [Retry 3/5].
+'(MaxRetryError("HTTPSConnectionPool(host='huggingface.co', port=443): Max retries exceeded with url: /timm/vit_small_patch14_dinov2.lvd142m/resolve/main/pytorch_model.bin (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x14e12afbf150>: Failed to establish a new connection: [Errno 101] Network is unreachable'))"), '(Request ID: 61bc7120-7eac-41db-b517-e11c5e043492)')' thrown while requesting HEAD https://huggingface.co/timm/vit_small_patch14_dinov2.lvd142m/resolve/main/pytorch_model.bin
+Retrying in 8s [Retry 4/5].
+'(MaxRetryError("HTTPSConnectionPool(host='huggingface.co', port=443): Max retries exceeded with url: /timm/vit_small_patch14_dinov2.lvd142m/resolve/main/pytorch_model.bin (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x14e12afbdcd0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))"), '(Request ID: caddc74f-c3f3-4651-9148-f3ce6829802e)')' thrown while requesting HEAD https://huggingface.co/timm/vit_small_patch14_dinov2.lvd142m/resolve/main/pytorch_model.bin
+Retrying in 8s [Retry 5/5].
+'(MaxRetryError("HTTPSConnectionPool(host='huggingface.co', port=443): Max retries exceeded with url: /timm/vit_small_patch14_dinov2.lvd142m/resolve/main/pytorch_model.bin (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x14e12afbc6d0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))"), '(Request ID: 0cbcc083-ac8d-4299-a1f1-c210c705d2c7)')' thrown while requesting HEAD https://huggingface.co/timm/vit_small_patch14_dinov2.lvd142m/resolve/main/pytorch_model.bin
+Traceback (most recent call last):
+  File "/home/ofarooq/venvs/ai_egd/lib/python3.11/site-packages/urllib3/connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ofarooq/venvs/ai_egd/lib/python3.11/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    raise err
+  File "/home/ofarooq/venvs/ai_egd/lib/python3.11/site-packages/urllib3/util/connection.py", line 73, in create_connection
+    sock.connect(sa)
+OSError: [Errno 101] Network is unreachable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ofarooq/venvs/ai_egd/lib/python3.11/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "/home/ofarooq/venvs/ai_egd/lib/python3.11/site-packages/urllib3/connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "/home/ofarooq/venvs/ai_egd/lib/python3.11/site-packages/urllib3/connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "/home/ofarooq/venvs/ai_egd/lib/python3.11/site-packages/urllib3/connectionpool.py", line 1093, in _validate_conn
+    conn.connect()
+  File "/home/ofarooq/venvs/ai_egd/lib/python3.11/site-packages/urllib3/connection.py", line 753, in connect
+    self.sock = sock = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "/home/ofarooq/venvs/ai_egd/lib/python3.11/site-packages/urllib3/connection.py", line 213, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPSConnection object at 0x14e12afbc6d0>: Failed to establish a new connection: [Errno 101] Network is unreachable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ofarooq/venvs/ai_egd/lib/python3.11/site-packages/requests/adapters.py", line 644, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "/home/ofarooq/venvs/ai_egd/lib/python3.11/site-packages/urllib3/connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "/home/ofarooq/venvs/ai_egd/lib/python3.11/site-packages/urllib3/util/retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='huggingface.co', port=443): Max retries exceeded with url: /timm/vit_small_patch14_dinov2.lvd142m/resolve/main/pytorch_model.bin (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x14e12afbc6d0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ofarooq/venvs/ai_egd/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1543, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ofarooq/venvs/ai_egd/lib/python3.11/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/ofarooq/venvs/ai_egd/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1460, in get_hf_file_metadata
+    r = _request_wrapper(
+        ^^^^^^^^^^^^^^^^^
+  File "/home/ofarooq/venvs/ai_egd/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 283, in _request_wrapper
+    response = _request_wrapper(
+               ^^^^^^^^^^^^^^^^^
+  File "/home/ofarooq/venvs/ai_egd/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 306, in _request_wrapper
+    response = http_backoff(method=method, url=url, **params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ofarooq/venvs/ai_egd/lib/python3.11/site-packages/huggingface_hub/utils/_http.py", line 325, in http_backoff
+    raise err
+  File "/home/ofarooq/venvs/ai_egd/lib/python3.11/site-packages/huggingface_hub/utils/_http.py", line 306, in http_backoff
+    response = session.request(method=method, url=url, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ofarooq/venvs/ai_egd/lib/python3.11/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ofarooq/venvs/ai_egd/lib/python3.11/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ofarooq/venvs/ai_egd/lib/python3.11/site-packages/huggingface_hub/utils/_http.py", line 95, in send
+    return super().send(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ofarooq/venvs/ai_egd/lib/python3.11/site-packages/requests/adapters.py", line 677, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: (MaxRetryError("HTTPSConnectionPool(host='huggingface.co', port=443): Max retries exceeded with url: /timm/vit_small_patch14_dinov2.lvd142m/resolve/main/pytorch_model.bin (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x14e12afbc6d0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))"), '(Request ID: 0cbcc083-ac8d-4299-a1f1-c210c705d2c7)')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/lustre06/project/6103394/ofarooq/ai-egd/src/train_classify.py", line 260, in <module>
+    main()
+  File "/lustre06/project/6103394/ofarooq/ai-egd/src/train_classify.py", line 192, in main
+    model = create_dinov2_classifier(num_classes=2, model_name=args.model_name).to(device)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lustre06/project/6103394/ofarooq/ai-egd/src/models/dinov2_classifier.py", line 15, in create_dinov2_classifier
+    model = timm.create_model(model_name, pretrained=True, num_classes=num_classes)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ofarooq/venvs/ai_egd/lib/python3.11/site-packages/timm/models/_factory.py", line 138, in create_model
+    model = create_fn(
+            ^^^^^^^^^^
+  File "/home/ofarooq/venvs/ai_egd/lib/python3.11/site-packages/timm/models/vision_transformer.py", line 3431, in vit_small_patch14_dinov2
+    model = _create_vision_transformer(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ofarooq/venvs/ai_egd/lib/python3.11/site-packages/timm/models/vision_transformer.py", line 2679, in _create_vision_transformer
+    return build_model_with_cfg(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ofarooq/venvs/ai_egd/lib/python3.11/site-packages/timm/models/_builder.py", line 457, in build_model_with_cfg
+    load_pretrained(
+  File "/home/ofarooq/venvs/ai_egd/lib/python3.11/site-packages/timm/models/_builder.py", line 226, in load_pretrained
+    state_dict = load_state_dict_from_hf(pretrained_loc, weights_only=True, cache_dir=cache_dir)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ofarooq/venvs/ai_egd/lib/python3.11/site-packages/timm/models/_hub.py", line 243, in load_state_dict_from_hf
+    cached_file = hf_hub_download(
+                  ^^^^^^^^^^^^^^^^
+  File "/home/ofarooq/venvs/ai_egd/lib/python3.11/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/ofarooq/venvs/ai_egd/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1007, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ofarooq/venvs/ai_egd/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1114, in _hf_hub_download_to_cache_dir
+    _raise_on_head_call_error(head_call_error, force_download, local_files_only)
+  File "/home/ofarooq/venvs/ai_egd/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1658, in _raise_on_head_call_error
+    raise LocalEntryNotFoundError(
+huggingface_hub.errors.LocalEntryNotFoundError: An error happened while trying to locate the file on the Hub and we cannot find the requested files in the local cache. Please check your connection and try again or make sure your Internet connection is on.
