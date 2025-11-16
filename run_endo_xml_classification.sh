@@ -15,4 +15,6 @@ source ~/venvs/ai_egd/bin/activate
 nvidia-smi
 
 # to check if there are any errors in the script
-python src/datasets/endo_xml_classification.py
+#python src/datasets/endo_xml_classification.py
+python -m src.datasets.endo_xml_classification
+
