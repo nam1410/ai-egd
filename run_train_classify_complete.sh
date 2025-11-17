@@ -28,12 +28,21 @@ echo "GPU info:"
 nvidia-smi
 
 # Run training
+# python -m src.train_classify \
+#     --data_root /lustre06/project/6103394/ofarooq/AIEGD_datasets/ \
+#     --patient_config_json /lustre06/project/6103394/ofarooq/ai-egd/src/datasets/patient_config.json \
+#     --batch_size 8 \
+#     --epochs_stage1 100 \
+#     --epochs_stage2 10 \
+#     --num_workers 4 \
+#     --save_dir ./test_checkpoints
+
 python -m src.train_classify \
     --data_root /lustre06/project/6103394/ofarooq/AIEGD_datasets/ \
-    --patient_config_json /lustre06/project/6103394/ofarooq/ai-egd/src/datasets/patient_config.json \
+    --patient_config_json /lustre06/project/6103394/ofarooq/ai-egd/src/datasets/patient_config_ann_missing.json \
     --batch_size 8 \
-    --epochs_stage1 100 \
-    --epochs_stage2 10 \
+    --epochs_stage1 500 \
+    --epochs_stage2 50 \
     --num_workers 4 \
     --save_dir ./test_checkpoints
 
