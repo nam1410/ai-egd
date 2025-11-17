@@ -277,7 +277,7 @@ def main():
     scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=5)
     early_stopping = EarlyStopping(patience=10)
 
-    print('Stage 1: training classifier head with frozen backbone...')
+    print('Stage 1: training classifier ')
     best_acc = 0.0
     best_epoch = 0
     

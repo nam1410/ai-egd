@@ -31,6 +31,8 @@ def xml_to_binary_label(xml_path: str) -> Optional[int]:
     if names is None:
         return None
     for n in names:
-        if n.lower() != 'normal':
+        NEGATIVES = ['normal', 'useless']
+        # if n.lower() != 'normal':
+        if n.lower() not in NEGATIVES:
             return 1
     return 0
