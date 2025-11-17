@@ -532,6 +532,223 @@
     "annotations":"datasets_sorted/December 5/December 5-1448/annotations",
     "Antrum": "Negative",
     "Body": "Negative"
+  },
+  
+
+
+
+
+
+
+  "April 11-0754":{
+    "images":"datasets_sorted/April 11/April 11-0754",
+    "annotations":"None",
+    "Antrum": "Negative",
+    "Body": "Negative"
+  },
+  "April 11-1038":{
+    "images":"datasets_sorted/April 11/April 11-1038",
+    "annotations":"None",
+    "Antrum": "Chronic Gastritis and Intestinal Metaplasia and H-pylori",
+    "Body": "Chronic Gastritis"
+  },
+  "April 11-1109":{
+    "images":"datasets_sorted/April 11/April 11-1109",
+    "annotations":"None",
+    "Antrum": "Gastropathy and Intestinal Metaplasia",
+    "Body": "Negative"
+  },
+  "April 11-1144":{
+    "images":"datasets_sorted/April 11/April 11-1144",
+    "annotations":"None",
+    "Antrum": "Intestinal Metaplasia",
+    "Body": "Negative"
+  },
+  "April 11-1357":{
+    "images":"datasets_sorted/April 11/April 11-1357",
+    "annotations":"None",
+    "Antrum": "Negative",
+    "Body": "Negative"
+  },
+  "April 11-1426":{
+    "images":"datasets_sorted/April 11/April 11-1426",
+    "annotations":"None",
+    "Antrum": "Gastropathy",
+    "Body": "Gastropathy"
+  },
+  "April 11-1505":{
+    "images":"datasets_sorted/April 11/April 11-1505",
+    "annotations":"None",
+    "Antrum": "Negative",
+    "Body": "Negative"
+  },
+  "May 16-0910":{
+    "images":"datasets_sorted/May 16/May 16-0910",
+    "annotations":"None",
+    "Antrum": "Negative",
+    "Body": "Negative"
+  },
+  "May 16-1428":{
+    "images":"datasets_sorted/May 16/May 16-1428",
+    "annotations":"None",
+    "Antrum": "Negative",
+    "Body": "Negative"
+  },
+  "May 30-1453":{
+    "images":"datasets_sorted/May 30/May 30-1453",
+    "annotations":"None",
+    "Antrum": "Chronic Gastritis",
+    "Body": "Chronic Gastritis"
+  },
+  "June 20-0749":{
+    "images":"datasets_sorted/June 20/June 20-0749",
+    "annotations":"None",
+    "Antrum": "Chronic Gastritis",
+    "Body": "Negative"
+  },
+  "June 20-0821":{
+    "images":"datasets_sorted/June 20/June 20-0821",
+    "annotations":"None",
+    "Antrum": "Chronic Gastritis",
+    "Body": "Chronic Gastritis"
+  },
+  "June 20-1054":{
+    "images":"datasets_sorted/June 20/June 20-1054",
+    "annotations":"None",
+    "Antrum": "Gastropathy",
+    "Body": "Gastropathy"
+  },
+  "June 20-1417":{
+    "images":"datasets_sorted/June 20/June 20-1417",
+    "annotations":"None",
+    "Antrum": "Gastropathy and Intestinal Metaplasia",
+    "Body": "Negative"
+  },
+  "June 20-1441":{
+    "images":"datasets_sorted/June 20/June 20-1441",
+    "annotations":"None",
+    "Antrum": "Gastropathy",
+    "Body": "Negative"
+  },
+  "June 20-1509":{
+    "images":"datasets_sorted/June 20/June 20-1509",
+    "annotations":"None",
+    "Antrum": "Chronic Gastritis and H-pylori",
+    "Body": "Chronic Gastritis and H-pylori"
+  },
+  "June 27-0834":{
+    "images":"datasets_sorted/June 27/June 27-0834",
+    "annotations":"None",
+    "Antrum": "Chronic Gastritis and Intestinal Metaplasia",
+    "Body": "Negative"
+  },
+  "June 27-0951":{
+    "images":"datasets_sorted/June 27/June 27-0951",
+    "annotations":"None",
+    "Antrum": "Chronic Gastritis and H-pylori",
+    "Body": "Negative"
+  },
+  "June 27-1045":{
+    "images":"datasets_sorted/June 27/June 27-1045",
+    "annotations":"None",
+    "Antrum": "Negative",
+    "Body": "Polyp"
+  },
+  "June 27-1122":{
+    "images":"datasets_sorted/June 27/June 27-1122",
+    "annotations":"None",
+    "Antrum": "Negative",
+    "Body": "Negative"
+  },
+  "June 27-1206":{
+    "images":"datasets_sorted/June 27/June 27-1206",
+    "annotations":"None",
+    "Antrum": "Negative",
+    "Body": "Negative"
+  },
+  "June 27-1307":{
+    "images":"datasets_sorted/June 27/June 27-1307",
+    "annotations":"None",
+    "Antrum": "Negative",
+    "Body": "Negative"
+  },
+  "June 27-1450":{
+    "images":"datasets_sorted/June 27/June 27-1450",
+    "annotations":"None",
+    "Antrum": "Chronic Gastritis and Intestinal Metaplasia",
+    "Body": "Negative"
+  },
+  "July 11-0745":{
+    "images":"datasets_sorted/July 11/July 11-0745",
+    "annotations":"None",
+    "Antrum": "Chronic Gastritis and Intestinal Metaplasia",
+    "Body": "Chronic Gastritis"
+  },
+  "July 11-0944":{
+    "images":"datasets_sorted/July 11/July 11-0944",
+    "annotations":"None",
+    "Antrum": "Gastropathy",
+    "Body": "Negative"
+  },
+  "July 11-1220":{
+    "images":"datasets_sorted/July 11/July 11-1220",
+    "annotations":"None",
+    "Antrum": "Negative",
+    "Body": "Negative"
+  },
+  "July 11-1258":{
+    "images":"datasets_sorted/July 11/July 11-1258",
+    "annotations":"None",
+    "Antrum": "Gastropathy",
+    "Body": "Chronic Gastritis"
+  },
+  "July 11-1406":{
+    "images":"datasets_sorted/July 11/July 11-1406",
+    "annotations":"None",
+    "Antrum": "Gastropathy",
+    "Body": "Gastropathy"
+  },
+  "July 11-1510":{
+    "images":"datasets_sorted/July 11/July 11-1510",
+    "annotations":"None",
+    "Antrum": "Chronic Gastritis",
+    "Body": "Chronic Gastritis"
+  },
+  "July 18-0753":{
+    "images":"datasets_sorted/July 18/July 18-0753",
+    "annotations":"None",
+    "Antrum": "Negative",
+    "Body": "Negative"
+  },
+  "July 18-0904":{
+    "images":"datasets_sorted/July 18/July 18-0904",
+    "annotations":"None",
+    "Antrum": "Gastropathy",
+    "Body": "Negative"
+  },
+  "July 18-1308":{
+    "images":"datasets_sorted/July 18/July 18-1308",
+    "annotations":"None",
+    "Antrum": "Gastropathy",
+    "Body": "Negative"
+  },
+  "July 18-1340":{
+    "images":"datasets_sorted/July 18/July 18-1340",
+    "annotations":"None",
+    "Antrum": "Gastropathy and Intestinal Metaplasia",
+    "Body": "Negative"
+  },
+  "July 18-1409":{
+    "images":"datasets_sorted/July 18/July 18-1409",
+    "annotations":"None",
+    "Antrum": "Gastropathy",
+    "Body": "Negative"
+  },
+  "July 18-1440":{
+    "images":"datasets_sorted/July 18/July 18-1440",
+    "annotations":"None",
+    "Antrum": "Gastropathy",
+    "Body": "Negative"
   }
 
 
