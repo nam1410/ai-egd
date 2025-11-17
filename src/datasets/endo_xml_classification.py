@@ -36,14 +36,30 @@ def _extract_key_parts(filename: str) -> Optional[Tuple[str, str, str]]:
     if 'nb' not in name:
         return None
     
-    # Extract record number
-    record_match = re.search(r'record\s*(\d+)', name)
-    if not record_match:
+    # # Extract record number
+    # record_match = re.search(r'record\s*(\d+)', name)
+    # if not record_match:
+    #     return None
+    # record_id = f"record{record_match.group(1)}"
+
+    # Extract patient ID - more flexible approach
+    # First, try to find the part before "NB"
+    nb_split = name.split('nb')
+    if len(nb_split) < 2:
         return None
-    record_id = f"record{record_match.group(1)}"
     
-    # Extract site (body/antrum) with number
-    site_match = re.search(r'(body|antrum)\s*(\d+)?', name)
+    patient_part = nb_split[0].strip()
+
+    # Normalize patient ID by removing all non-alphanumeric characters
+    patient_id = re.sub(r'[^a-z0-9]+', '', patient_part)
+    
+    if not patient_id:
+        return None
+
+    # Extract site (body/antrum) with number from the part after NB
+    remainder = nb_split[1]
+    # site_match = re.search(r'(body|antrum)\s*(\d+)?', name)
+    site_match = re.search(r'(body|antrum)\s*(\d+)?', remainder)
     if not site_match:
         return None
     
@@ -51,7 +67,8 @@ def _extract_key_parts(filename: str) -> Optional[Tuple[str, str, str]]:
     number = site_match.group(2) if site_match.group(2) else ""
     site_with_number = f"{site}{number}"
     
-    return (record_id, site_with_number, "nb")
+    # return (record_id, site_with_number, "nb")
+    return (patient_id, site_with_number, "nb")
 
 
 def _normalize_stem(path: str) -> str:
