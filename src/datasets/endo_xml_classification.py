@@ -141,12 +141,19 @@ class EndoClassificationDataset(Dataset):
                 continue
                 
             # Handle optional annotations directory
-            if ann_dir:
+            # if ann_dir:
+            #     ann_dir = _join_root(self.data_root, ann_dir)
+            #     if not os.path.isdir(ann_dir):
+            #         ann_dir = None
+            # else:
+            #     ann_dir = None
+
+            if ann_dir in [None, '', 'None', 'none', 'null', 'NULL']:
+                ann_dir = None
+            else:
                 ann_dir = _join_root(self.data_root, ann_dir)
                 if not os.path.isdir(ann_dir):
                     ann_dir = None
-            else:
-                ann_dir = None
 
             # Collect images and xmls
             all_img_files = _walk_files(images_dir, IMG_EXTS)
@@ -242,7 +249,10 @@ if __name__ == "__main__":
     
     #change these paths as needed
     data_root = "/lustre06/project/6103394/ofarooq/AIEGD_datasets/"
-    config_path = "/lustre06/project/6103394/ofarooq/ai-egd/src/datasets/patient_config.json"
+    # config_path = "/lustre06/project/6103394/ofarooq/ai-egd/src/datasets/patient_config.json"
+    config_path = "/lustre06/project/6103394/ofarooq/ai-egd/src/datasets/patient_config_ann_missing.json"
+
+    
     
     with open(config_path, 'r') as f:
         patient_config = json.load(f)
