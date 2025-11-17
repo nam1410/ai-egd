@@ -1,6 +1,7 @@
 # Ignore checkpoints and logs
 *.out
 *.err
+*.md
 output/
 checkpoints/
 hub/
