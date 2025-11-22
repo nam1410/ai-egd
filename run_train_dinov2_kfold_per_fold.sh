@@ -6,7 +6,6 @@
 #SBATCH --mem=16G
 #SBATCH --cpus-per-task=4
 #SBATCH --gres=gpu:1
-#SBATCH --array=0-4   # 5 folds (adjust range if folds differ)
 
 module --force purge
 module load StdEnv/2023 python/3.11.5 gcc/12.3 cuda/12.6 opencv/4.12
@@ -15,7 +14,7 @@ source ~/venvs/ai_egd/bin/activate
 
 # FOLD_INDEX=${SLURM_ARRAY_TASK_ID}
 
-python -m src.python -m src.train_dinov2_kfold_per_fold \
+python -m src.train_dinov2_kfold_per_fold \
   --data_root /lustre06/project/6103394/ofarooq/AIEGD_datasets/ \
   --patient_config_json /lustre06/project/6103394/ofarooq/ai-egd/src/datasets/patient_config_ann_missing.json \
   --fold_index 4 \
@@ -23,12 +22,14 @@ python -m src.python -m src.train_dinov2_kfold_per_fold \
   --epochs 100 \
   --lr 0.00001 \
   --save_dir ./test_checkpoints_dinov2_kfold \
-  --splits_file ./test_checkpoints_dinov2_kfold/kfold_splits.npz
+  --splits_file ./test_checkpoints_dinov2_kfold/kfold_splits.npz \
+  --force
 
-# After array completes
-python -m src.eval_k_fold_per_fold \
-    --data_root /lustre06/project/6103394/ofarooq/AIEGD_datasets/ \
-    --patient_config_json /lustre06/project/6103394/ofarooq/ai-egd/src/datasets/patient_config_ann_missing.json \
-    --folds 5 \
-    --splits_file ./test_checkpoints_dinov2_kfold/kfold_splits.npz \
-    --save_dir ./test_checkpoints_dinov2_kfold
+
+# # After array completes
+# python -m src.eval_k_fold_per_fold \
+#     --data_root /lustre06/project/6103394/ofarooq/AIEGD_datasets/ \
+#     --patient_config_json /lustre06/project/6103394/ofarooq/ai-egd/src/datasets/patient_config_ann_missing.json \
+#     --folds 5 \
+#     --splits_file ./test_checkpoints_dinov2_kfold/kfold_splits.npz \
+#     --save_dir ./test_checkpoints_dinov2_kfold
