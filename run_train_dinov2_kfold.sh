@@ -2,7 +2,7 @@
 #SBATCH --job-name=dinov2_endo_train
 #SBATCH --output=slurm-%j.out
 #SBATCH --error=slurm-%j.err
-#SBATCH --time=00:40:00              # Adjust based on your needs
+#SBATCH --time=04:00:00              # Adjust based on your needs
 #SBATCH --mem=16G                    # Memory per node
 #SBATCH --cpus-per-task=4            # CPU cores for data loading
 #SBATCH --gres=gpu:1                 # Request 1 GPU
