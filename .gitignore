@@ -2,6 +2,7 @@
 *.out
 *.err
 *.md
+*.jpeg
 output/
 checkpoints/
 hub/

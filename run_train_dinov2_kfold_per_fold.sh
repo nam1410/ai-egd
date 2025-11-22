@@ -15,7 +15,7 @@ source ~/venvs/ai_egd/bin/activate
 
 # FOLD_INDEX=${SLURM_ARRAY_TASK_ID}
 
-python -m src.train_dinov2_single_fold \
+python -m src.python -m src.train_dinov2_kfold_per_fold \
   --data_root /lustre06/project/6103394/ofarooq/AIEGD_datasets/ \
   --patient_config_json /lustre06/project/6103394/ofarooq/ai-egd/src/datasets/patient_config_ann_missing.json \
   --fold_index 4 \
@@ -26,7 +26,7 @@ python -m src.train_dinov2_single_fold \
   --splits_file ./test_checkpoints_dinov2_kfold/kfold_splits.npz
 
 # After array completes
-python -m src.eval_kfold_results \
+python -m src.eval_k_fold_per_fold \
     --data_root /lustre06/project/6103394/ofarooq/AIEGD_datasets/ \
     --patient_config_json /lustre06/project/6103394/ofarooq/ai-egd/src/datasets/patient_config_ann_missing.json \
     --folds 5 \
